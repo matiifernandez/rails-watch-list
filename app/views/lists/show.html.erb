@@ -1,22 +1,52 @@
-<div class="container">
-  <h1><%= @list.name.upcase %></h1>
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="m-0"><%= @list.name.upcase %></h1>
+    <%= link_to "Back to all lists", lists_path, class: 'btn btn-light' %>
+  </div>
 
-  <ul>
+  <% if @list.bookmarks.any? %>
+    <div class="row">
       <% @list.bookmarks.each do |bookmark| %>
-        <li>
-          <%= bookmark.movie.title %>
-          - <%= bookmark.comment %>
-          <%= link_to "Remove", bookmark_path(bookmark),
-    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        </li>
+        <div class="col-12 col-sm-4 col-md-4 col-lg-3 mb-4">
+          <div class="card h-100">
+            <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title, class: 'card-img-top' %>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title d-flex justify-content-between align-items-center">
+                <%= bookmark.movie.title %>
+                <small class="text-muted"><i class="fas fa-star text-warning"></i> <%= bookmark.movie.rating %></small>
+              </h5>
+              <p class="card-text text-muted"><%= bookmark.movie.overview %></p>
+              <blockquote class="blockquote mt-auto mb-0">
+                <p class="mb-0"><%= bookmark.comment %></p>
+              </blockquote>
+            </div>
+            <div class="card-footer text-end">
+              <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe, bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove this movie?" }, class: 'text-danger' %>
+            </div>
+          </div>
+        </div>
       <% end %>
-    </ul>
+    </div>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      There are no movies in this list yet.
+    </div>
+  <% end %>
 
-  <h2>Add a new movie to this list</h2>
-    <%= simple_form_for [@list, @bookmark] do |f| %>
-      <%= f.association :movie, collection: Movie.all %>
-      <%= f.input :comment, placeholder: 'Alan Turing recommended this movie' %>
-      <%= f.submit 'Add Bookmark', class: 'btn btn-primary'%>
-    <% end %>
-    <%= link_to "Back to Lists", lists_path %>
+  <hr class="my-5">
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Add a new movie</h3>
+          <%= simple_form_for [@list, @bookmark] do |f| %>
+            <%= f.association :movie, collection: Movie.all %>
+            <%= f.input :comment, placeholder: 'A must-watch for any sci-fi fan!' %>
+            <%= f.submit 'Add Movie', class: 'btn btn-primary w-100' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
