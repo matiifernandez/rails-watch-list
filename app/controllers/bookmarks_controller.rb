@@ -7,7 +7,8 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = @list.bookmarks.new(bookmark_params)
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.list = @list
     if @bookmark.save
       redirect_to list_path(@list), notice: 'Movie was successfully added to the list.'
     else
@@ -16,8 +17,11 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
+    list_to_redirect_to = @bookmark.list
+
     @bookmark.destroy
-    redirect_to list_path(@bookmark.list), notice: 'Bookmark was successfully removed.'
+
+    redirect_to list_path(list_to_redirect_to), notice: 'Bookmark was successfully removed.'
   end
 
   private
