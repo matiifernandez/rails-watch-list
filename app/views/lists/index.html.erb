@@ -1,13 +1,13 @@
-<div class="container">
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path 'banner.jpg', alt: 'banner image' %>)">
+<div class="container my-3">
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path 'banner.jpg', alt: 'banner image' %>)">
   Movies Watch list. Save any kind of movie!
-</div>
-
-
-  <%= link_to 'Create a new list', new_list_path, class: "btn btn-primary" %>
-  <ul>
-  <% @lists.each do |list| %>
-    <li><%= link_to list.name, list_path(list) %></li>
-  <% end %>
-  </ul>
+  <%= link_to 'Create a new list', new_list_path, class: "ms-4 btn btn-light" %>
+  </div>
+  <div class="cards">
+    <% @lists.each do |list| %>
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path 'list-card.jpg', alt: 'background image for the list movie' %>)">
+        <%= link_to list.name, list_path(list) %>
+      </div>
+    <% end %>
+  </div>
 </div>
