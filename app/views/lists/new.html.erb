@@ -6,8 +6,8 @@
           <h1 class="card-title text-center mb-4">Add a new list</h1>
           <%= simple_form_for @list do |f| %>
             <%= f.input :name, placeholder: 'e.g. My favorite movies' %>
-            <%= f.submit 'Create list', class: 'btn btn-primary w-100 mb-2' %>
-            <%= link_to "Cancel", lists_path, class: 'btn btn-secondary w-100' %>
+            <%= f.submit 'Create list', class: 'btn btn-secondary w-100 mb-2' %>
+            <%= link_to "Cancel", lists_path, class: 'btn btn-light w-100' %>
           <% end %>
         </div>
       </div>

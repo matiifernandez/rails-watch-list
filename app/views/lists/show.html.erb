@@ -43,7 +43,7 @@
           <%= simple_form_for [@list, @bookmark] do |f| %>
             <%= f.association :movie, collection: Movie.all %>
             <%= f.input :comment, placeholder: 'A must-watch for any sci-fi fan!' %>
-            <%= f.submit 'Add Movie', class: 'btn btn-primary w-100' %>
+            <%= f.submit 'Add Movie', class: 'btn btn-secondary w-100' %>
           <% end %>
         </div>
       </div>
